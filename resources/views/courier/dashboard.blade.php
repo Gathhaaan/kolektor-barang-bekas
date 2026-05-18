@@ -43,7 +43,7 @@
                     <div class="flex items-start justify-between gap-2">
                         <div>
                             <h3 class="font-bold text-slate-800">{{ $asgn->donation->title }}</h3>
-                            <p class="text-xs text-slate-500 mt-0.5">Pendonasi: {{ $asgn->donation->donor->name }}</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Pendonasi: {{ $asgn->donation->user->name }}</p>
                         </div>
                         @php $c=$asgn->statusColor(); @endphp
                         <span class="badge bg-{{ $c }}-100 text-{{ $c }}-700">{{ $asgn->statusLabel() }}</span>

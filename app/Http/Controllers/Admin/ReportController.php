@@ -33,12 +33,19 @@ class ReportController extends Controller
         ])->having('total_donations', '>', 0)->orderByDesc('total_donations')->get();
 
         // Status summary
-        $statusSummary = Donation::selectRaw('status, COUNT(*) as count')
-            ->groupBy('status')->pluck('count', 'status');
+        $statusSummary = Donation::whereYear('created_at', $year)
+            ->selectRaw('
+                CASE 
+                    WHEN status IN ("assigned", "picked_up", "delivered") THEN "in_progress"
+                    ELSE status 
+                END as group_status, COUNT(*) as count
+            ')
+            ->groupBy('group_status')
+            ->pluck('count', 'group_status');
 
         // Top donors
         $topDonors = User::withCount(['donations as completed_count' => fn($q) => $q->where('status', 'completed')])
-            ->whereHas('role', fn($q) => $q->where('name', 'donor'))
+            ->whereHas('role', fn($q) => $q->where('name', 'user'))
             ->having('completed_count', '>', 0)
             ->orderByDesc('points')
             ->take(10)->get();

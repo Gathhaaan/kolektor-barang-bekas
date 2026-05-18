@@ -2,13 +2,13 @@
 @section('title', 'Detail Donasi')
 @section('page-title', 'Detail Donasi')
 @section('sidebar-nav')
-    <a href="{{ route('donor.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
+    <a href="{{ route('user.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Donasi Saya</p>
-    <a href="{{ route('donor.donations.create') }}" class="sidebar-link">➕ Upload Donasi</a>
-    <a href="{{ route('donor.donations.index') }}" class="sidebar-link active">📦 Donasi Saya</a>
+    <a href="{{ route('user.donations.create') }}" class="sidebar-link">➕ Upload Donasi</a>
+    <a href="{{ route('user.donations.index') }}" class="sidebar-link active">📦 Donasi Saya</a>
 @endsection
 @section('content')
-<div class="mb-4"><a href="{{ route('donor.donations.index') }}" class="text-sm text-slate-500 hover:text-indigo-600">← Kembali</a></div>
+<div class="mb-4"><a href="{{ route('user.donations.index') }}" class="text-sm text-slate-500 hover:text-indigo-600">← Kembali</a></div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-2 space-y-6">
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">

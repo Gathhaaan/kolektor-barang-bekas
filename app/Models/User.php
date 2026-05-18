@@ -68,14 +68,9 @@ class User extends Authenticatable
         return $this->role?->name === 'admin';
     }
 
-    public function isDonor(): bool
+    public function isUser(): bool
     {
-        return $this->role?->name === 'donor';
-    }
-
-    public function isRecipient(): bool
-    {
-        return $this->role?->name === 'recipient';
+        return $this->role?->name === 'user';
     }
 
     public function isCourier(): bool
@@ -92,8 +87,7 @@ class User extends Authenticatable
     {
         return match($this->role?->name) {
             'admin'     => 'admin.dashboard',
-            'donor'     => 'donor.dashboard',
-            'recipient' => 'recipient.dashboard',
+            'user'      => 'user.dashboard',
             'courier'   => 'courier.dashboard',
             default     => 'dashboard',
         };

@@ -3,15 +3,15 @@
 @section('page-title', 'Upload Donasi Baru')
 @section('page-subtitle', 'Lengkapi informasi barang yang ingin Anda donasikan')
 @section('sidebar-nav')
-    <a href="{{ route('donor.dashboard') }}" class="sidebar-link">📊 <span>Dashboard</span></a>
+    <a href="{{ route('user.dashboard') }}" class="sidebar-link">📊 <span>Dashboard</span></a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Donasi Saya</p>
-    <a href="{{ route('donor.donations.create') }}" class="sidebar-link active">➕ <span>Upload Donasi</span></a>
-    <a href="{{ route('donor.donations.index') }}" class="sidebar-link">📦 <span>Donasi Saya</span></a>
+    <a href="{{ route('user.donations.create') }}" class="sidebar-link active">➕ <span>Upload Donasi</span></a>
+    <a href="{{ route('user.donations.index') }}" class="sidebar-link">📦 <span>Donasi Saya</span></a>
 @endsection
 @section('content')
 <div class="max-w-2xl">
     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-        <form method="POST" action="{{ route('donor.donations.store') }}" enctype="multipart/form-data" class="space-y-6">
+        <form method="POST" action="{{ route('user.donations.store') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <!-- Title -->
@@ -99,7 +99,7 @@
                         class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors">
                     📤 Kirim Donasi
                 </button>
-                <a href="{{ route('donor.donations.index') }}"
+                <a href="{{ route('user.donations.index') }}"
                    class="px-6 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold hover:bg-slate-200 transition-colors">
                     Batal
                 </a>

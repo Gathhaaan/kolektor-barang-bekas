@@ -10,7 +10,7 @@ class AssignmentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Assignment::with(['donation.category', 'courier', 'donation.donor'])->latest();
+        $query = Assignment::with(['donation.category', 'courier', 'donation.user'])->latest();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -22,7 +22,7 @@ class AssignmentController extends Controller
 
     public function show(Assignment $assignment)
     {
-        $assignment->load(['donation.category', 'courier', 'admin', 'request.recipient', 'donation.donor']);
+        $assignment->load(['donation.category', 'courier', 'admin', 'request.user', 'donation.user']);
         return view('admin.assignments.show', compact('assignment'));
     }
 }

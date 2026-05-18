@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Recipient;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRequestRequest;
@@ -14,7 +14,7 @@ class RequestController extends Controller
 {
     public function catalog(Request $request)
     {
-        $query = Donation::with(['category', 'donor'])
+        $query = Donation::with(['category', 'user'])
             ->where('status', 'approved');
 
         if ($request->filled('category')) {
@@ -33,25 +33,29 @@ class RequestController extends Controller
         }
 
         $donations = $query->latest()->paginate(12)->withQueryString();
-        $categories = Category::withCount(['donations as approved_count' => fn($q) => $q->where('status', 'approved')])->get();
+        $categories = Category::withCount(['donations as approved_count' => function($q) {
+            $q->where('status', 'approved');
+        }])->get();
 
-        return view('recipient.catalog.index', compact('donations', 'categories'));
+        return view('user.catalog.index', compact('donations', 'categories'));
     }
 
     public function catalogShow(Donation $donation)
     {
         abort_if($donation->status !== 'approved', 404);
-        $donation->load(['category', 'donor']);
+        $donation->load(['category', 'user']);
 
         $alreadyRequested = auth()->user()->donationRequests()
             ->where('donation_id', $donation->id)->exists();
 
-        return view('recipient.catalog.show', compact('donation', 'alreadyRequested'));
+        return view('user.catalog.show', compact('donation', 'alreadyRequested'));
     }
 
     public function store(StoreRequestRequest $request)
     {
         $donation = Donation::findOrFail($request->donation_id);
+        
+        abort_if($donation->user_id === auth()->id(), 403, 'Anda tidak bisa meminta barang Anda sendiri.');
 
         // Check not already requested
         $exists = auth()->user()->donationRequests()
@@ -80,7 +84,7 @@ class RequestController extends Controller
             ]);
         }
 
-        return redirect()->route('recipient.requests.index')
+        return redirect()->route('user.requests.index')
             ->with('success', 'Permintaan berhasil dikirim!');
     }
 
@@ -94,6 +98,6 @@ class RequestController extends Controller
         }
 
         $requests = $query->paginate(12)->withQueryString();
-        return view('recipient.requests.index', compact('requests'));
+        return view('user.requests.index', compact('requests'));
     }
 }

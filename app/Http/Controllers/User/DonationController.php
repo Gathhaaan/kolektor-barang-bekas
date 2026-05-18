@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Donor;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDonationRequest;
@@ -20,13 +20,13 @@ class DonationController extends Controller
         }
 
         $donations = $query->paginate(12)->withQueryString();
-        return view('donor.donations.index', compact('donations'));
+        return view('user.donations.index', compact('donations'));
     }
 
     public function create()
     {
         $categories = Category::orderBy('name')->get();
-        return view('donor.donations.create', compact('categories'));
+        return view('user.donations.create', compact('categories'));
     }
 
     public function store(StoreDonationRequest $request)
@@ -61,7 +61,7 @@ class DonationController extends Controller
             ]);
         }
 
-        return redirect()->route('donor.donations.show', $donation)
+        return redirect()->route('user.donations.show', $donation)
             ->with('success', 'Donasi berhasil dikirim dan sedang menunggu verifikasi admin.');
     }
 
@@ -69,6 +69,6 @@ class DonationController extends Controller
     {
         abort_if($donation->user_id !== auth()->id(), 403);
         $donation->load(['category', 'assignment.courier']);
-        return view('donor.donations.show', compact('donation'));
+        return view('user.donations.show', compact('donation'));
     }
 }

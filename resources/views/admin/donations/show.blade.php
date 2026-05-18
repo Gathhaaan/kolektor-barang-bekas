@@ -91,10 +91,10 @@
             <div class="divide-y divide-slate-50">
                 @foreach($donation->requests as $req)
                 <div class="px-6 py-4 flex items-start gap-4">
-                    <img src="{{ $req->recipient->avatarUrl() }}" class="w-9 h-9 rounded-full flex-shrink-0">
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                            <p class="font-semibold text-slate-800 text-sm">{{ $req->recipient->name }}</p>
+                    <img src="{{ $req->user->avatarUrl() }}" class="w-9 h-9 rounded-full flex-shrink-0">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <p class="font-semibold text-slate-800 text-sm">{{ $req->user->name }}</p>
                             @php $rc = $req->statusColor(); @endphp
                             <span class="badge bg-{{ $rc }}-100 text-{{ $rc }}-700">{{ $req->statusLabel() }}</span>
                         </div>
@@ -147,14 +147,14 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-4">👤 Informasi Pendonasi</h3>
             <div class="flex items-center gap-3 mb-4">
-                <img src="{{ $donation->donor->avatarUrl() }}" class="w-12 h-12 rounded-full">
+                <img src="{{ $donation->user->avatarUrl() }}" class="w-12 h-12 rounded-full">
                 <div>
-                    <p class="font-semibold text-slate-800">{{ $donation->donor->name }}</p>
-                    <p class="text-xs text-slate-500">{{ $donation->donor->email }}</p>
+                    <p class="font-semibold text-slate-800">{{ $donation->user->name }}</p>
+                    <p class="text-xs text-slate-500">{{ $donation->user->email }}</p>
                 </div>
             </div>
-            @if($donation->donor->phone)
-            <p class="text-sm text-slate-600">📱 {{ $donation->donor->phone }}</p>
+            @if($donation->user->phone)
+            <p class="text-sm text-slate-600">📱 {{ $donation->user->phone }}</p>
             @endif
             <p class="text-xs text-slate-400 mt-2">Diupload: {{ $donation->created_at->format('d M Y H:i') }}</p>
         </div>
@@ -220,7 +220,7 @@
                     <select name="request_id" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-indigo-400">
                         <option value="">-- Pilih permintaan penerima --</option>
                         @foreach($donation->requests->where('status','pending') as $req)
-                        <option value="{{ $req->id }}">{{ $req->recipient->name }}</option>
+                        <option value="{{ $req->id }}">{{ $req->user->name }}</option>
                         @endforeach
                     </select>
                 </div>

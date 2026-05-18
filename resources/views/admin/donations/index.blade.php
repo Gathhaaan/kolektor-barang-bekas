@@ -64,7 +64,7 @@
                             <span class="font-medium text-slate-800 text-sm">{{ $donation->title }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->donor->name }}</td>
+                    <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->user->name }}</td>
                     <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->category->icon }} {{ $donation->category->name }}</td>
                     <td class="px-6 py-3">
                         <span class="badge bg-slate-100 text-slate-700">{{ $donation->conditionLabel() }}</span>

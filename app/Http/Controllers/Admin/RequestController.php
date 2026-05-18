@@ -10,7 +10,7 @@ class RequestController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DonationRequest::with(['donation.category', 'recipient'])->latest();
+        $query = DonationRequest::with(['donation.category', 'user'])->latest();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);

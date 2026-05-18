@@ -28,12 +28,12 @@
 </div>
 
 <!-- Status Summary Cards -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-    @foreach(['pending'=>['⏳','amber'],'approved'=>['✅','blue'],'completed'=>['🎉','emerald'],'rejected'=>['❌','red']] as $s=>[$icon,$color])
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+    @foreach(['pending'=>['⏳','amber','Menunggu'],'approved'=>['✅','blue','Disetujui'],'in_progress'=>['🚚','purple','Diproses'],'completed'=>['🎉','emerald','Selesai'],'rejected'=>['❌','red','Ditolak']] as $s=>[$icon,$color,$label])
     <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm text-center">
         <div class="text-3xl mb-2">{{ $icon }}</div>
         <p class="text-2xl font-black text-slate-800">{{ $statusSummary[$s] ?? 0 }}</p>
-        <p class="text-xs text-slate-500 mt-1 capitalize">{{ ucfirst($s) }}</p>
+        <p class="text-xs text-slate-500 mt-1">{{ $label }}</p>
     </div>
     @endforeach
 </div>

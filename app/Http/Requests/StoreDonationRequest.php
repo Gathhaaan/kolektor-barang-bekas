@@ -8,7 +8,7 @@ class StoreDonationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->user()->isDonor();
+        return auth()->user()->isUser();
     }
 
     public function rules(): array

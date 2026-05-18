@@ -127,7 +127,7 @@
                 <p class="text-slate-500 mt-1">Barang-barang yang baru tersedia</p>
             </div>
             @auth
-            <a href="{{ route('recipient.catalog.index') }}" class="text-indigo-600 font-semibold text-sm hover:underline">Lihat Semua →</a>
+            <a href="{{ route('user.catalog.index') }}" class="text-indigo-600 font-semibold text-sm hover:underline">Lihat Semua →</a>
             @endauth
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -154,11 +154,11 @@
                     <p class="text-sm text-slate-500 line-clamp-2">{{ $donation->description }}</p>
                     <div class="mt-4 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <img src="{{ $donation->donor->avatarUrl() }}" class="w-6 h-6 rounded-full">
-                            <span class="text-xs text-slate-500">{{ $donation->donor->name }}</span>
+                            <img src="{{ $donation->user->avatarUrl() }}" class="w-6 h-6 rounded-full">
+                            <span class="text-xs text-slate-500">{{ $donation->user->name }}</span>
                         </div>
                         @auth
-                        <a href="{{ route('recipient.catalog.show', $donation) }}"
+                        <a href="{{ route('user.catalog.show', $donation) }}"
                            class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
                             Minta →
                         </a>

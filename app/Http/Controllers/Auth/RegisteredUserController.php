@@ -17,8 +17,7 @@ class RegisteredUserController extends Controller
 {
     public function create(): View
     {
-        $roles = Role::whereIn('name', ['donor', 'recipient'])->get();
-        return view('auth.register', compact('roles'));
+        return view('auth.register');
     }
 
     public function store(Request $request): RedirectResponse
@@ -27,21 +26,16 @@ class RegisteredUserController extends Controller
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role_id'  => ['required', 'exists:roles,id'],
             'phone'    => ['nullable', 'string', 'max:20'],
         ]);
 
-        // Prevent registering as admin or courier
-        $role = Role::find($request->role_id);
-        if (in_array($role?->name, ['admin', 'courier'])) {
-            return back()->withErrors(['role_id' => 'Role tidak diizinkan untuk pendaftaran umum.']);
-        }
+        $userRole = Role::where('name', 'user')->first();
 
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role_id'  => $request->role_id,
+            'role_id'  => $userRole?->id,
             'phone'    => $request->phone,
         ]);
 

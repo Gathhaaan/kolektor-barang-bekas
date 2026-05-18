@@ -38,8 +38,8 @@
         <div>
             <p class="text-xs text-slate-400">Pendonasi</p>
             <div class="flex items-center gap-2 mt-1">
-                <img src="{{ $assignment->donation->donor->avatarUrl() }}" class="w-7 h-7 rounded-full">
-                <span class="text-sm font-semibold">{{ $assignment->donation->donor->name }}</span>
+                <img src="{{ $assignment->donation->user->avatarUrl() }}" class="w-7 h-7 rounded-full">
+                <span class="text-sm font-semibold">{{ $assignment->donation->user->name }}</span>
             </div>
         </div>
     </div>
@@ -88,10 +88,10 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-3">🙋 Penerima</h3>
             <div class="flex items-center gap-3">
-                <img src="{{ $assignment->request->recipient->avatarUrl() }}" class="w-10 h-10 rounded-full">
+                <img src="{{ $assignment->request->user->avatarUrl() }}" class="w-10 h-10 rounded-full">
                 <div>
-                    <p class="font-semibold text-slate-800">{{ $assignment->request->recipient->name }}</p>
-                    <p class="text-xs text-slate-500">{{ $assignment->request->recipient->email }}</p>
+                    <p class="font-semibold text-slate-800">{{ $assignment->request->user->name }}</p>
+                    <p class="text-xs text-slate-500">{{ $assignment->request->user->email }}</p>
                 </div>
             </div>
         </div>

@@ -72,14 +72,10 @@
 </div>
 
 <!-- User Stats -->
-<div class="grid grid-cols-3 gap-4 mb-6">
+<div class="grid grid-cols-2 gap-4 mb-6">
     <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-2xl p-5 text-white">
-        <p class="text-4xl font-black">{{ $stats['donors'] }}</p>
-        <p class="text-indigo-200 text-sm mt-1">📤 Pendonasi Terdaftar</p>
-    </div>
-    <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl p-5 text-white">
-        <p class="text-4xl font-black">{{ $stats['recipients'] }}</p>
-        <p class="text-emerald-200 text-sm mt-1">🙋 Penerima Terdaftar</p>
+        <p class="text-4xl font-black">{{ $stats['users'] }}</p>
+        <p class="text-indigo-200 text-sm mt-1">👥 Pengguna Terdaftar</p>
     </div>
     <div class="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-5 text-white">
         <p class="text-4xl font-black">{{ $stats['couriers'] }}</p>
@@ -102,7 +98,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="font-semibold text-slate-800 text-sm truncate">{{ $donation->title }}</p>
-                    <p class="text-xs text-slate-500">{{ $donation->donor->name }} · {{ $donation->created_at->diffForHumans() }}</p>
+                    <p class="text-xs text-slate-500">{{ $donation->user->name }} · {{ $donation->created_at->diffForHumans() }}</p>
                 </div>
                 <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-lg font-medium">Tinjau →</span>
             </a>
@@ -165,7 +161,7 @@
                             {{ $donation->title }}
                         </a>
                     </td>
-                    <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->donor->name }}</td>
+                    <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->user->name }}</td>
                     <td class="px-6 py-3">
                         <span class="text-sm">{{ $donation->category->icon }} {{ $donation->category->name }}</span>
                     </td>

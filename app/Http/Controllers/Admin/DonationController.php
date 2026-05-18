@@ -15,7 +15,7 @@ class DonationController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Donation::with(['donor', 'category'])->latest();
+        $query = Donation::with(['user', 'category'])->latest();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -31,7 +31,7 @@ class DonationController extends Controller
 
     public function show(Donation $donation)
     {
-        $donation->load(['donor', 'category', 'requests.recipient', 'assignment.courier']);
+        $donation->load(['user', 'category', 'requests.user', 'assignment.courier']);
         $couriers = User::whereHas('role', fn($q) => $q->where('name', 'courier'))
             ->where('is_active', true)->get();
         return view('admin.donations.show', compact('donation', 'couriers'));

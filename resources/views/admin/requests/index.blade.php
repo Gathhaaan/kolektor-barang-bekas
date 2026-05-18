@@ -79,10 +79,10 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-2">
-                            <img src="{{ $req->recipient->avatarUrl() }}" class="w-8 h-8 rounded-full">
+                            <img src="{{ $req->user->avatarUrl() }}" class="w-8 h-8 rounded-full">
                             <div>
-                                <p class="text-sm font-medium text-slate-800">{{ $req->recipient->name }}</p>
-                                <p class="text-xs text-slate-500">{{ $req->recipient->email }}</p>
+                                <p class="text-sm font-medium text-slate-800">{{ $req->user->name }}</p>
+                                <p class="text-xs text-slate-500">{{ $req->user->email }}</p>
                             </div>
                         </div>
                     </td>
