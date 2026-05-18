@@ -5,6 +5,7 @@
     <a href="{{ route('admin.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Manajemen</p>
     <a href="{{ route('admin.donations.index') }}" class="sidebar-link">📦 Donasi</a>
+    <a href="{{ route('admin.requests.index') }}" class="sidebar-link">🙋 Permintaan</a>
     <a href="{{ route('admin.assignments.index') }}" class="sidebar-link active">🚚 Penugasan</a>
     <a href="{{ route('admin.categories.index') }}" class="sidebar-link">🗂️ Kategori</a>
     <a href="{{ route('admin.users.index') }}" class="sidebar-link">👥 Pengguna</a>

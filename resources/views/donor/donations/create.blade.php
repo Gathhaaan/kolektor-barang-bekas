@@ -58,7 +58,7 @@
             <!-- Description -->
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-2">Deskripsi Barang *</label>
-                <textarea name="description" rows="4" required minlength="20"
+                <textarea name="description" rows="4" required
                           placeholder="Ceritakan kondisi, ukuran, kegunaan barang secara detail..."
                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-400 outline-none text-sm resize-none @error('description') border-red-400 @enderror">{{ old('description') }}</textarea>
                 @error('description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror

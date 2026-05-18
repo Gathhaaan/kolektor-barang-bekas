@@ -86,20 +86,18 @@ class DonationController extends Controller
     {
         $validated = $request->validated();
 
-        // Accept a request if specified
-        if (!empty($validated['request_id'])) {
-            DonationRequest::where('donation_id', $donation->id)
-                ->where('id', '!=', $validated['request_id'])
-                ->update(['status' => 'rejected']);
+        // Accept the selected request
+        DonationRequest::where('donation_id', $donation->id)
+            ->where('id', '!=', $validated['request_id'])
+            ->update(['status' => 'rejected']);
 
-            DonationRequest::find($validated['request_id'])?->update(['status' => 'accepted']);
-        }
+        DonationRequest::find($validated['request_id'])?->update(['status' => 'accepted']);
 
         Assignment::create([
             'donation_id' => $donation->id,
             'courier_id'  => $validated['courier_id'],
             'admin_id'    => auth()->id(),
-            'request_id'  => $validated['request_id'] ?? null,
+            'request_id'  => $validated['request_id'],
             'pickup_date' => $validated['pickup_date'],
             'pickup_note' => $validated['pickup_note'] ?? null,
             'status'      => 'assigned',

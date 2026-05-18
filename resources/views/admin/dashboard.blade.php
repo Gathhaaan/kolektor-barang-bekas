@@ -15,6 +15,13 @@
             <span class="ml-auto bg-amber-400 text-white text-xs px-1.5 py-0.5 rounded-full">{{ $stats['pending'] }}</span>
         @endif
     </a>
+    <a href="{{ route('admin.requests.index') }}" class="sidebar-link {{ request()->routeIs('admin.requests*') ? 'active' : '' }}">
+        🙋 <span>Permintaan</span>
+        @php $pendingRequestsCount = \App\Models\DonationRequest::where('status', 'pending')->count(); @endphp
+        @if($pendingRequestsCount > 0)
+            <span class="ml-auto bg-amber-400 text-white text-xs px-1.5 py-0.5 rounded-full">{{ $pendingRequestsCount }}</span>
+        @endif
+    </a>
     <a href="{{ route('admin.assignments.index') }}" class="sidebar-link {{ request()->routeIs('admin.assignments*') ? 'active' : '' }}">
         🚚 <span>Penugasan</span>
     </a>

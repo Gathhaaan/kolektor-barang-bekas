@@ -36,7 +36,8 @@
     <!-- Chart.js (for reports) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 
-    <style>
+    <!-- Custom Styles -->
+    <style type="text/tailwindcss">
         [x-cloak] { display: none !important; }
         .sidebar-link { @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200; }
         .sidebar-link.active { @apply bg-brand-600 text-white shadow-md; }
@@ -84,18 +85,6 @@
             @yield('sidebar-nav')
         </nav>
 
-        <!-- Sidebar Footer -->
-        <div class="px-3 py-4 border-t border-slate-100 space-y-1">
-            <a href="{{ route('home') }}" class="sidebar-link">
-                🏠 <span>Halaman Utama</span>
-            </a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="sidebar-link w-full text-left text-red-500 hover:bg-red-50 hover:text-red-700">
-                    🚪 <span>Keluar</span>
-                </button>
-            </form>
-        </div>
     </aside>
 
     <!-- Main Content -->
@@ -108,6 +97,12 @@
             </div>
 
             <div class="flex items-center gap-4">
+                <!-- Home Link -->
+                <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors text-slate-600 hover:text-brand-600" title="Halaman Utama">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-sm font-semibold hidden sm:inline">Halaman Utama</span>
+                </a>
+
                 <!-- Notifications -->
                 @php $unreadCount = auth()->user()->unreadNotifications()->count(); @endphp
                 <div class="relative" x-data="{ open: false }" @click.outside="open = false">
@@ -159,9 +154,28 @@
                     </div>
                 </div>
 
-                <!-- Profile -->
-                <img src="{{ auth()->user()->avatarUrl() }}" alt="Profile"
-                     class="w-9 h-9 rounded-full ring-2 ring-brand-200 cursor-pointer">
+                <!-- Profile Dropdown -->
+                <div class="relative" x-data="{ profileOpen: false }" @click.outside="profileOpen = false">
+                    <button @click="profileOpen = !profileOpen" class="flex items-center focus:outline-none">
+                        <img src="{{ auth()->user()->avatarUrl() }}" alt="Profile"
+                             class="w-9 h-9 rounded-full ring-2 ring-brand-200 hover:ring-brand-400 transition-all cursor-pointer">
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div x-show="profileOpen" x-cloak
+                         class="absolute right-0 top-12 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 z-50 overflow-hidden py-2">
+                        <div class="px-4 py-2 border-b border-slate-100 mb-1">
+                            <p class="text-sm font-semibold text-slate-800 truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-xs text-slate-500 truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors text-left">
+                                🚪 <span>Keluar</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </header>
 

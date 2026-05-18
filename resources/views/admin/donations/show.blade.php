@@ -8,6 +8,7 @@
     <a href="{{ route('admin.dashboard') }}" class="sidebar-link">📊 <span>Dashboard</span></a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Manajemen</p>
     <a href="{{ route('admin.donations.index') }}" class="sidebar-link active">📦 <span>Donasi</span></a>
+    <a href="{{ route('admin.requests.index') }}" class="sidebar-link">🙋 <span>Permintaan</span></a>
     <a href="{{ route('admin.assignments.index') }}" class="sidebar-link">🚚 <span>Penugasan</span></a>
     <a href="{{ route('admin.categories.index') }}" class="sidebar-link">🗂️ <span>Kategori</span></a>
     <a href="{{ route('admin.users.index') }}" class="sidebar-link">👥 <span>Pengguna</span></a>
@@ -204,20 +205,25 @@
         @if($donation->status === 'approved')
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-4">🚚 Tugaskan Kurir</h3>
+            
+            @if($donation->requests->where('status','pending')->isEmpty())
+            <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                <p class="text-sm font-semibold text-amber-700 mb-1">Menunggu Permintaan</p>
+                <p class="text-sm text-amber-600">Kurir baru dapat ditugaskan setelah ada penerima yang mengajukan permintaan untuk barang ini.</p>
+            </div>
+            @else
             <form method="POST" action="{{ route('admin.donations.assign', $donation) }}" class="space-y-3">
                 @csrf
 
-                @if($donation->requests->where('status','pending')->isNotEmpty())
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Permintaan (opsional)</label>
-                    <select name="request_id" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-indigo-400">
-                        <option value="">-- Tanpa permintaan spesifik --</option>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Permintaan *</label>
+                    <select name="request_id" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-indigo-400">
+                        <option value="">-- Pilih permintaan penerima --</option>
                         @foreach($donation->requests->where('status','pending') as $req)
                         <option value="{{ $req->id }}">{{ $req->recipient->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                @endif
 
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Kurir *</label>
@@ -246,6 +252,7 @@
                     🚚 Tugaskan Kurir
                 </button>
             </form>
+            @endif
         </div>
         @endif
     </div>

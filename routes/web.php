@@ -53,6 +53,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/assignments', [Admin\AssignmentController::class, 'index'])->name('assignments.index');
     Route::get('/assignments/{assignment}', [Admin\AssignmentController::class, 'show'])->name('assignments.show');
 
+    // Requests
+    Route::get('/requests', [Admin\RequestController::class, 'index'])->name('requests.index');
+
     // Categories
     Route::get('/categories', [Admin\CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [Admin\CategoryController::class, 'store'])->name('categories.store');
