@@ -19,7 +19,7 @@ class Donation extends Model
     ];
 
     // Relationships
-    public function donor()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

@@ -13,7 +13,7 @@ class DonationRequest extends Model
         return $this->belongsTo(Donation::class);
     }
 
-    public function recipient()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

@@ -53,6 +53,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/assignments', [Admin\AssignmentController::class, 'index'])->name('assignments.index');
     Route::get('/assignments/{assignment}', [Admin\AssignmentController::class, 'show'])->name('assignments.show');
 
+    // Requests
+    Route::get('/requests', [Admin\RequestController::class, 'index'])->name('requests.index');
+
     // Categories
     Route::get('/categories', [Admin\CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [Admin\CategoryController::class, 'store'])->name('categories.store');
@@ -68,22 +71,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/reports', [Admin\ReportController::class, 'index'])->name('reports.index');
 });
 
-// ─── DONOR ────────────────────────────────────────────────────────────────────
-Route::prefix('donor')->name('donor.')->middleware(['auth', 'role:donor'])->group(function () {
-    Route::get('/dashboard', [Donor\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/donations', [Donor\DonationController::class, 'index'])->name('donations.index');
-    Route::get('/donations/create', [Donor\DonationController::class, 'create'])->name('donations.create');
-    Route::post('/donations', [Donor\DonationController::class, 'store'])->name('donations.store');
-    Route::get('/donations/{donation}', [Donor\DonationController::class, 'show'])->name('donations.show');
-});
+// ─── USER (Formerly Donor & Recipient) ───────────────────────────────────────
+Route::prefix('user')->name('user.')->middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+    
+    // As Donor
+    Route::get('/donations', [App\Http\Controllers\User\DonationController::class, 'index'])->name('donations.index');
+    Route::get('/donations/create', [App\Http\Controllers\User\DonationController::class, 'create'])->name('donations.create');
+    Route::post('/donations', [App\Http\Controllers\User\DonationController::class, 'store'])->name('donations.store');
+    Route::get('/donations/{donation}', [App\Http\Controllers\User\DonationController::class, 'show'])->name('donations.show');
 
-// ─── RECIPIENT ────────────────────────────────────────────────────────────────
-Route::prefix('recipient')->name('recipient.')->middleware(['auth', 'role:recipient'])->group(function () {
-    Route::get('/dashboard', [Recipient\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/catalog', [Recipient\RequestController::class, 'catalog'])->name('catalog.index');
-    Route::get('/catalog/{donation}', [Recipient\RequestController::class, 'catalogShow'])->name('catalog.show');
-    Route::post('/requests', [Recipient\RequestController::class, 'store'])->name('requests.store');
-    Route::get('/requests', [Recipient\RequestController::class, 'myRequests'])->name('requests.index');
+    // As Recipient
+    Route::get('/catalog', [App\Http\Controllers\User\RequestController::class, 'catalog'])->name('catalog.index');
+    Route::get('/catalog/{donation}', [App\Http\Controllers\User\RequestController::class, 'catalogShow'])->name('catalog.show');
+    Route::post('/requests', [App\Http\Controllers\User\RequestController::class, 'store'])->name('requests.store');
+    Route::get('/requests', [App\Http\Controllers\User\RequestController::class, 'myRequests'])->name('requests.index');
 });
 
 // ─── COURIER ──────────────────────────────────────────────────────────────────

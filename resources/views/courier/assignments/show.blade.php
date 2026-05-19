@@ -34,11 +34,11 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-3">👤 Pendonasi</h3>
             <div class="flex items-center gap-3">
-                <img src="{{ $assignment->donation->donor->avatarUrl() }}" class="w-10 h-10 rounded-full">
+                <img src="{{ $assignment->donation->user->avatarUrl() }}" class="w-10 h-10 rounded-full">
                 <div>
-                    <p class="font-semibold text-slate-800">{{ $assignment->donation->donor->name }}</p>
-                    @if($assignment->donation->donor->phone)
-                    <p class="text-sm text-indigo-600">📱 {{ $assignment->donation->donor->phone }}</p>
+                    <p class="font-semibold text-slate-800">{{ $assignment->donation->user->name }}</p>
+                    @if($assignment->donation->user->phone)
+                    <p class="text-sm text-indigo-600">📱 {{ $assignment->donation->user->phone }}</p>
                     @endif
                 </div>
             </div>
@@ -49,14 +49,14 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-3">🙋 Penerima</h3>
             <div class="flex items-center gap-3">
-                <img src="{{ $assignment->request->recipient->avatarUrl() }}" class="w-10 h-10 rounded-full">
+                <img src="{{ $assignment->request->user->avatarUrl() }}" class="w-10 h-10 rounded-full">
                 <div>
-                    <p class="font-semibold text-slate-800">{{ $assignment->request->recipient->name }}</p>
-                    @if($assignment->request->recipient->phone)
-                    <p class="text-sm text-indigo-600">📱 {{ $assignment->request->recipient->phone }}</p>
+                    <p class="font-semibold text-slate-800">{{ $assignment->request->user->name }}</p>
+                    @if($assignment->request->user->phone)
+                    <p class="text-sm text-indigo-600">📱 {{ $assignment->request->user->phone }}</p>
                     @endif
-                    @if($assignment->request->recipient->address)
-                    <p class="text-xs text-slate-500 mt-0.5">📍 {{ $assignment->request->recipient->address }}</p>
+                    @if($assignment->request->user->address)
+                    <p class="text-xs text-slate-500 mt-0.5">📍 {{ $assignment->request->user->address }}</p>
                     @endif
                 </div>
             </div>

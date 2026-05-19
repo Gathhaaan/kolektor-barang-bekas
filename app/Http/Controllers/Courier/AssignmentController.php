@@ -14,7 +14,7 @@ class AssignmentController extends Controller
     public function index(Request $request)
     {
         $query = auth()->user()->assignments()
-            ->with(['donation.category', 'donation.donor'])->latest();
+            ->with(['donation.category', 'donation.user'])->latest();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -27,7 +27,7 @@ class AssignmentController extends Controller
     public function show(Assignment $assignment)
     {
         abort_if($assignment->courier_id !== auth()->id(), 403);
-        $assignment->load(['donation.category', 'donation.donor', 'request.recipient', 'admin']);
+        $assignment->load(['donation.category', 'donation.user', 'request.user', 'admin']);
         return view('courier.assignments.show', compact('assignment'));
     }
 
@@ -75,28 +75,28 @@ class AssignmentController extends Controller
         $donation = $assignment->donation;
         $donation->update(['status' => 'completed']);
 
-        // Award points to donor
+        // Award points to user
         $pointsEarned = 10;
-        $donor = $donation->donor;
-        $donor->increment('points', $pointsEarned);
+        $user = $donation->user;
+        $user->increment('points', $pointsEarned);
 
         PointLog::create([
-            'user_id'     => $donor->id,
+            'user_id'     => $user->id,
             'donation_id' => $donation->id,
             'points'      => $pointsEarned,
             'description' => "Donasi \"{$donation->title}\" berhasil dikirimkan.",
         ]);
 
-        // Notify donor
+        // Notify user
         Notification::create([
-            'user_id' => $donor->id,
+            'user_id' => $user->id,
             'type'    => 'donation_completed',
             'title'   => 'Donasi Selesai! +' . $pointsEarned . ' Poin',
             'message' => "Barang \"{$donation->title}\" berhasil dikirimkan. Anda mendapatkan {$pointsEarned} poin kontribusi!",
             'data'    => ['donation_id' => $donation->id, 'points' => $pointsEarned],
         ]);
 
-        // Notify recipient if exists
+        // Notify user if exists
         if ($assignment->request) {
             Notification::create([
                 'user_id' => $assignment->request->user_id,

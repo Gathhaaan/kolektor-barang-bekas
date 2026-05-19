@@ -3,10 +3,10 @@
 @section('page-title', 'Katalog Donasi')
 @section('page-subtitle', 'Browse barang yang tersedia untuk diambil')
 @section('sidebar-nav')
-    <a href="{{ route('recipient.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
+    <a href="{{ route('user.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Donasi</p>
-    <a href="{{ route('recipient.catalog.index') }}" class="sidebar-link active">🛒 Katalog Donasi</a>
-    <a href="{{ route('recipient.requests.index') }}" class="sidebar-link">📋 Permintaan Saya</a>
+    <a href="{{ route('user.catalog.index') }}" class="sidebar-link active">🛒 Katalog Donasi</a>
+    <a href="{{ route('user.requests.index') }}" class="sidebar-link">📋 Permintaan Saya</a>
 @endsection
 @section('content')
 <!-- Filters -->
@@ -28,7 +28,7 @@
         </select>
         <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold">🔍 Cari</button>
         @if(request()->hasAny(['search','category','condition']))
-        <a href="{{ route('recipient.catalog.index') }}" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm">Reset</a>
+        <a href="{{ route('user.catalog.index') }}" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm">Reset</a>
         @endif
     </form>
 </div>
@@ -52,10 +52,10 @@
             <p class="text-sm text-slate-500 mt-1 line-clamp-2 leading-relaxed">{{ $donation->description }}</p>
             <div class="mt-4 flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <img src="{{ $donation->donor->avatarUrl() }}" class="w-6 h-6 rounded-full">
-                    <span class="text-xs text-slate-500">{{ $donation->donor->name }}</span>
+                    <img src="{{ $donation->user->avatarUrl() }}" class="w-6 h-6 rounded-full">
+                    <span class="text-xs text-slate-500">{{ $donation->user->name }}</span>
                 </div>
-                <a href="{{ route('recipient.catalog.show', $donation) }}"
+                <a href="{{ route('user.catalog.show', $donation) }}"
                    class="text-xs bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold hover:bg-indigo-700 transition-colors">
                     Minta →
                 </a>

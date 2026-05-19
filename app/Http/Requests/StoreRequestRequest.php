@@ -8,7 +8,7 @@ class StoreRequestRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->user()->isRecipient();
+        return auth()->user()->isUser();
     }
 
     public function rules(): array

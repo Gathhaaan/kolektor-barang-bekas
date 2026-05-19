@@ -27,33 +27,17 @@ class AdminSeeder extends Seeder
             ]
         );
 
-        // Demo donor
-        $donorRole = Role::where('name', 'donor')->first();
+        // Demo user
+        $userRole = Role::where('name', 'user')->first();
         User::firstOrCreate(
-            ['email' => 'donor@kolektor.ac.id'],
+            ['email' => 'user@kolektor.ac.id'],
             [
                 'name'     => 'Budi Santoso',
                 'password' => Hash::make('password'),
-                'role_id'  => $donorRole?->id,
+                'role_id'  => $userRole?->id,
                 'phone'    => '08111111111',
                 'address'  => 'Kos Mawar No. 12',
                 'points'   => 30,
-                'is_active' => true,
-                'email_verified_at' => now(),
-            ]
-        );
-
-        // Demo recipient
-        $recipientRole = Role::where('name', 'recipient')->first();
-        User::firstOrCreate(
-            ['email' => 'penerima@kolektor.ac.id'],
-            [
-                'name'     => 'Siti Rahayu',
-                'password' => Hash::make('password'),
-                'role_id'  => $recipientRole?->id,
-                'phone'    => '08122222222',
-                'address'  => 'Asrama Putri Blok B',
-                'points'   => 0,
                 'is_active' => true,
                 'email_verified_at' => now(),
             ]

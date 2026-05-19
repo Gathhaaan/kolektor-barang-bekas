@@ -19,7 +19,7 @@ class DashboardController extends Controller
         ];
 
         $todayAssignments = $user->assignments()
-            ->with(['donation.category', 'donation.donor'])
+            ->with(['donation.category', 'donation.user'])
             ->whereDate('pickup_date', today())
             ->whereIn('status', ['assigned', 'picked_up'])
             ->get();

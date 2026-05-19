@@ -5,6 +5,7 @@
     <a href="{{ route('admin.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Manajemen</p>
     <a href="{{ route('admin.donations.index') }}" class="sidebar-link">📦 Donasi</a>
+    <a href="{{ route('admin.requests.index') }}" class="sidebar-link">🙋 Permintaan</a>
     <a href="{{ route('admin.assignments.index') }}" class="sidebar-link active">🚚 Penugasan</a>
     <a href="{{ route('admin.categories.index') }}" class="sidebar-link">🗂️ Kategori</a>
     <a href="{{ route('admin.users.index') }}" class="sidebar-link">👥 Pengguna</a>
@@ -37,8 +38,8 @@
         <div>
             <p class="text-xs text-slate-400">Pendonasi</p>
             <div class="flex items-center gap-2 mt-1">
-                <img src="{{ $assignment->donation->donor->avatarUrl() }}" class="w-7 h-7 rounded-full">
-                <span class="text-sm font-semibold">{{ $assignment->donation->donor->name }}</span>
+                <img src="{{ $assignment->donation->user->avatarUrl() }}" class="w-7 h-7 rounded-full">
+                <span class="text-sm font-semibold">{{ $assignment->donation->user->name }}</span>
             </div>
         </div>
     </div>
@@ -87,10 +88,10 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-3">🙋 Penerima</h3>
             <div class="flex items-center gap-3">
-                <img src="{{ $assignment->request->recipient->avatarUrl() }}" class="w-10 h-10 rounded-full">
+                <img src="{{ $assignment->request->user->avatarUrl() }}" class="w-10 h-10 rounded-full">
                 <div>
-                    <p class="font-semibold text-slate-800">{{ $assignment->request->recipient->name }}</p>
-                    <p class="text-xs text-slate-500">{{ $assignment->request->recipient->email }}</p>
+                    <p class="font-semibold text-slate-800">{{ $assignment->request->user->name }}</p>
+                    <p class="text-xs text-slate-500">{{ $assignment->request->user->email }}</p>
                 </div>
             </div>
         </div>

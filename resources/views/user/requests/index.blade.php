@@ -2,10 +2,10 @@
 @section('title', 'Permintaan Saya')
 @section('page-title', 'Permintaan Saya')
 @section('sidebar-nav')
-    <a href="{{ route('recipient.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
+    <a href="{{ route('user.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Donasi</p>
-    <a href="{{ route('recipient.catalog.index') }}" class="sidebar-link">🛒 Katalog Donasi</a>
-    <a href="{{ route('recipient.requests.index') }}" class="sidebar-link active">📋 Permintaan Saya</a>
+    <a href="{{ route('user.catalog.index') }}" class="sidebar-link">🛒 Katalog Donasi</a>
+    <a href="{{ route('user.requests.index') }}" class="sidebar-link active">📋 Permintaan Saya</a>
 @endsection
 @section('content')
 <div class="flex items-center justify-between mb-4">
@@ -18,7 +18,7 @@
         </select>
         <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold">Filter</button>
     </form>
-    <a href="{{ route('recipient.catalog.index') }}" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors">
+    <a href="{{ route('user.catalog.index') }}" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors">
         🛒 Browse Katalog
     </a>
 </div>
@@ -64,7 +64,7 @@
     <div class="py-20 text-center">
         <p class="text-5xl mb-4">📋</p>
         <p class="text-slate-500 font-semibold">Belum ada permintaan</p>
-        <a href="{{ route('recipient.catalog.index') }}" class="mt-3 inline-block text-indigo-600 font-semibold hover:underline">Browse katalog →</a>
+        <a href="{{ route('user.catalog.index') }}" class="mt-3 inline-block text-indigo-600 font-semibold hover:underline">Browse katalog →</a>
     </div>
     @endforelse
 </div>

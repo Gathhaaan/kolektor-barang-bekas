@@ -24,31 +24,6 @@
             <form method="POST" action="{{ route('register') }}" class="space-y-4">
                 @csrf
 
-                <!-- Role Selection -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Saya ingin bergabung sebagai</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        @foreach($roles as $role)
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="role_id" value="{{ $role->id }}"
-                                   class="peer sr-only" {{ old('role_id') == $role->id ? 'checked' : '' }}
-                                   {{ $loop->first ? 'checked' : '' }}>
-                            <div class="p-3 border-2 border-slate-200 rounded-xl text-center transition-all
-                                        peer-checked:border-indigo-500 peer-checked:bg-indigo-50">
-                                <p class="font-semibold text-sm text-slate-700">
-                                    {{ $role->name === 'donor' ? '📤 Pendonasi' : '🙋 Penerima' }}
-                                </p>
-                                <p class="text-xs text-slate-500 mt-0.5">
-                                    {{ $role->name === 'donor' ? 'Upload barang donasi' : 'Minta barang donasi' }}
-                                </p>
-                            </div>
-                        </label>
-                        @endforeach
-                    </div>
-                    @error('role_id')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
 
                 <!-- Name -->
                 <div>
@@ -79,18 +54,28 @@
                 <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-semibold text-slate-700 mb-1.5">Kata Sandi</label>
-                    <input id="password" type="password" name="password" required
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none text-sm"
-                           placeholder="Minimal 8 karakter">
+                    <div class="relative">
+                        <input id="password" type="password" name="password" required
+                               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none text-sm pr-12"
+                               placeholder="Minimal 8 karakter">
+                        <button type="button" onclick="togglePassword('password', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 focus:outline-none">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </button>
+                    </div>
                     @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 <!-- Confirm Password -->
                 <div>
                     <label for="password_confirmation" class="block text-sm font-semibold text-slate-700 mb-1.5">Konfirmasi Kata Sandi</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" required
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none text-sm"
-                           placeholder="Ulangi kata sandi">
+                    <div class="relative">
+                        <input id="password_confirmation" type="password" name="password_confirmation" required
+                               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none text-sm pr-12"
+                               placeholder="Ulangi kata sandi">
+                        <button type="button" onclick="togglePassword('password_confirmation', this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 focus:outline-none">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit"
@@ -109,5 +94,17 @@
         <a href="{{ route('home') }}" class="hover:text-white transition-colors">← Kembali ke halaman utama</a>
     </p>
 </div>
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            if (type === 'text') {
+                btn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>`;
+            } else {
+                btn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>`;
+            }
+        }
+    </script>
 </body>
 </html>

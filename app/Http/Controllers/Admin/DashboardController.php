@@ -15,18 +15,17 @@ class DashboardController extends Controller
         $stats = [
             'pending'   => Donation::where('status', 'pending')->count(),
             'approved'  => Donation::where('status', 'approved')->count(),
-            'assigned'  => Donation::where('status', 'assigned')->count(),
+            'assigned'  => Donation::whereIn('status', ['assigned', 'picked_up', 'delivered'])->count(),
             'completed' => Donation::where('status', 'completed')->count(),
             'total'     => Donation::count(),
-            'donors'    => User::whereHas('role', fn($q) => $q->where('name', 'donor'))->count(),
-            'recipients'=> User::whereHas('role', fn($q) => $q->where('name', 'recipient'))->count(),
+            'users'     => User::whereHas('role', fn($q) => $q->where('name', 'user'))->count(),
             'couriers'  => User::whereHas('role', fn($q) => $q->where('name', 'courier'))->count(),
         ];
 
-        $recentDonations = Donation::with(['donor', 'category'])
+        $recentDonations = Donation::with(['user', 'category'])
             ->latest()->take(8)->get();
 
-        $pendingDonations = Donation::with(['donor', 'category'])
+        $pendingDonations = Donation::with(['user', 'category'])
             ->where('status', 'pending')->latest()->take(5)->get();
 
         $activeAssignments = Assignment::with(['donation', 'courier'])

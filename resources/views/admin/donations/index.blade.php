@@ -8,6 +8,7 @@
     <a href="{{ route('admin.dashboard') }}" class="sidebar-link">📊 <span>Dashboard</span></a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Manajemen</p>
     <a href="{{ route('admin.donations.index') }}" class="sidebar-link active">📦 <span>Donasi</span></a>
+    <a href="{{ route('admin.requests.index') }}" class="sidebar-link">🙋 <span>Permintaan</span></a>
     <a href="{{ route('admin.assignments.index') }}" class="sidebar-link">🚚 <span>Penugasan</span></a>
     <a href="{{ route('admin.categories.index') }}" class="sidebar-link">🗂️ <span>Kategori</span></a>
     <a href="{{ route('admin.users.index') }}" class="sidebar-link">👥 <span>Pengguna</span></a>
@@ -63,7 +64,7 @@
                             <span class="font-medium text-slate-800 text-sm">{{ $donation->title }}</span>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->donor->name }}</td>
+                    <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->user->name }}</td>
                     <td class="px-6 py-3 text-sm text-slate-600">{{ $donation->category->icon }} {{ $donation->category->name }}</td>
                     <td class="px-6 py-3">
                         <span class="badge bg-slate-100 text-slate-700">{{ $donation->conditionLabel() }}</span>

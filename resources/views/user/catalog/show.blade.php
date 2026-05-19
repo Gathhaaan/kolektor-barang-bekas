@@ -2,13 +2,13 @@
 @section('title', $donation->title)
 @section('page-title', 'Detail Barang')
 @section('sidebar-nav')
-    <a href="{{ route('recipient.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
+    <a href="{{ route('user.dashboard') }}" class="sidebar-link">📊 Dashboard</a>
     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-4 pt-4 pb-1">Donasi</p>
-    <a href="{{ route('recipient.catalog.index') }}" class="sidebar-link active">🛒 Katalog Donasi</a>
-    <a href="{{ route('recipient.requests.index') }}" class="sidebar-link">📋 Permintaan Saya</a>
+    <a href="{{ route('user.catalog.index') }}" class="sidebar-link active">🛒 Katalog Donasi</a>
+    <a href="{{ route('user.requests.index') }}" class="sidebar-link">📋 Permintaan Saya</a>
 @endsection
 @section('content')
-<div class="mb-4"><a href="{{ route('recipient.catalog.index') }}" class="text-sm text-slate-500 hover:text-indigo-600">← Kembali ke katalog</a></div>
+<div class="mb-4"><a href="{{ route('user.catalog.index') }}" class="text-sm text-slate-500 hover:text-indigo-600">← Kembali ke katalog</a></div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-2 space-y-5">
         <!-- Photos -->
@@ -47,9 +47,9 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-3">👤 Pendonasi</h3>
             <div class="flex items-center gap-3">
-                <img src="{{ $donation->donor->avatarUrl() }}" class="w-12 h-12 rounded-full">
+                <img src="{{ $donation->user->avatarUrl() }}" class="w-12 h-12 rounded-full">
                 <div>
-                    <p class="font-semibold text-slate-800">{{ $donation->donor->name }}</p>
+                    <p class="font-semibold text-slate-800">{{ $donation->user->name }}</p>
                     <p class="text-xs text-slate-400 mt-0.5">{{ $donation->created_at->format('d M Y') }}</p>
                 </div>
             </div>
@@ -59,14 +59,20 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
             <h3 class="font-bold text-slate-800 mb-4">🙋 Ajukan Permintaan</h3>
 
-            @if($alreadyRequested)
+            @if($donation->user_id === auth()->id())
+            <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-center">
+                <p class="text-2xl mb-2">🏷️</p>
+                <p class="text-sm font-semibold text-indigo-700">Ini adalah barang donasi Anda sendiri.</p>
+                <a href="{{ route('user.donations.show', $donation) }}" class="mt-2 inline-block text-xs text-indigo-600 hover:underline">Lihat detail donasi</a>
+            </div>
+            @elseif($alreadyRequested)
             <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl text-center">
                 <p class="text-2xl mb-2">📋</p>
                 <p class="text-sm font-semibold text-amber-700">Anda sudah mengajukan permintaan untuk barang ini</p>
-                <a href="{{ route('recipient.requests.index') }}" class="mt-2 inline-block text-xs text-indigo-600 hover:underline">Lihat permintaan saya</a>
+                <a href="{{ route('user.requests.index') }}" class="mt-2 inline-block text-xs text-indigo-600 hover:underline">Lihat permintaan saya</a>
             </div>
             @else
-            <form method="POST" action="{{ route('recipient.requests.store') }}" class="space-y-4">
+            <form method="POST" action="{{ route('user.requests.store') }}" class="space-y-4">
                 @csrf
                 <input type="hidden" name="donation_id" value="{{ $donation->id }}">
                 <div>
