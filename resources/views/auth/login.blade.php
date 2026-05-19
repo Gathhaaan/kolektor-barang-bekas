@@ -72,10 +72,17 @@
                             <input type="checkbox" name="remember" class="rounded border-slate-300 text-indigo-600">
                             Ingat saya
                         </label>
+<<<<<<< HEAD
                         {{-- @if(Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-sm text-indigo-600 hover:underline">Lupa
                                 kata sandi?</a>
                         @endif --}}
+=======
+                        @if(Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="text-sm text-indigo-600 hover:underline">Lupa
+                                kata sandi?</a>
+                        @endif
+>>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
                     </div>
 
                     <button type="submit"

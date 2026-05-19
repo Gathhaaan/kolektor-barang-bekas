@@ -97,6 +97,7 @@ Route::prefix('courier')->name('courier.')->middleware(['auth', 'role:courier'])
     Route::post('/assignments/{assignment}/deliver', [Courier\AssignmentController::class, 'markDelivered'])->name('assignments.deliver');
 });
 
+<<<<<<< HEAD
 // ─── PROFILE ────────────────────────────────────────────────────────────────────
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
@@ -104,4 +105,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+=======
+>>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
 require __DIR__ . '/auth.php';
