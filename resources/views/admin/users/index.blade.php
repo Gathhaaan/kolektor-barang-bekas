@@ -60,14 +60,26 @@
                     </td>
                     <td class="px-6 py-3 text-xs text-slate-500">{{ $user->created_at->format('d M Y') }}</td>
                     <td class="px-6 py-3">
-                        @unless($user->isAdmin())
-                        <form method="POST" action="{{ route('admin.users.toggleActive', $user) }}" class="inline">
-                            @csrf
-                            <button type="submit" class="text-xs px-3 py-1.5 rounded-lg font-medium {{ $user->is_active ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' }} transition-colors">
-                                {{ $user->is_active ? 'Nonaktifkan' : 'Aktifkan' }}
-                            </button>
-                        </form>
-                        @endunless
+                        @if($user->id !== auth()->id())
+                        <div class="flex items-center gap-2">
+                            <form method="POST" action="{{ route('admin.users.changeRole', $user) }}">
+                                @csrf
+                                <select name="role_id" onchange="this.form.submit()" class="text-xs px-2 py-1.5 rounded-lg border border-slate-200 focus:outline-none focus:border-indigo-500 bg-white">
+                                    @foreach($roles as $role)
+                                    <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->label }}</option>
+                                    @endforeach
+                                </select>
+                            </form>
+                            <form method="POST" action="{{ route('admin.users.toggleActive', $user) }}">
+                                @csrf
+                                <button type="submit" class="text-xs px-3 py-1.5 rounded-lg font-medium {{ $user->is_active ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' }} transition-colors">
+                                    {{ $user->is_active ? 'Nonaktifkan' : 'Aktifkan' }}
+                                </button>
+                            </form>
+                        </div>
+                        @else
+                        <span class="text-xs text-slate-400 italic">Akun Anda</span>
+                        @endif
                     </td>
                 </tr>
                 @empty

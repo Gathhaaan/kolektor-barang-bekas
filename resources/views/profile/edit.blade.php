@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 @extends('layouts.app')
 
 @section('title', 'Profil Saya')
@@ -35,7 +35,6 @@
     </div>
 </div>
 @endsection
-=======
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -65,4 +64,3 @@
         </div>
     </div>
 </x-app-layout>
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b

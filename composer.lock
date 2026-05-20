@@ -7438,7 +7438,6 @@
         },
         {
             "name": "sebastian/cli-parser",
-<<<<<<< HEAD
             "version": "4.2.1",
             "source": {
                 "type": "git",
@@ -7448,8 +7447,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/cli-parser/zipball/7d05781b13f7dec9043a629a21d086ed74582a15",
-                "reference": "7d05781b13f7dec9043a629a21d086ed74582a15",
-=======
+                "reference": "7d05781b13f7dec9043a629a21d086ed74582a15"
+            },
             "version": "4.2.0",
             "source": {
                 "type": "git",
@@ -7460,18 +7459,14 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/cli-parser/zipball/90f41072d220e5c40df6e8635f5dafba2d9d4d04",
                 "reference": "90f41072d220e5c40df6e8635f5dafba2d9d4d04",
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.3"
             },
             "require-dev": {
-<<<<<<< HEAD
-                "phpunit/phpunit": "^12.5.25"
-=======
+                "phpunit/phpunit": "^12.5.25",
                 "phpunit/phpunit": "^12.0"
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
             },
             "type": "library",
             "extra": {
@@ -7500,11 +7495,8 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/cli-parser/issues",
                 "security": "https://github.com/sebastianbergmann/cli-parser/security/policy",
-<<<<<<< HEAD
-                "source": "https://github.com/sebastianbergmann/cli-parser/tree/4.2.1"
-=======
+                "source": "https://github.com/sebastianbergmann/cli-parser/tree/4.2.1",
                 "source": "https://github.com/sebastianbergmann/cli-parser/tree/4.2.0"
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
             },
             "funding": [
                 {
@@ -7524,11 +7516,8 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2026-05-17T05:29:34+00:00"
-=======
+            "time": "2026-05-17T05:29:34+00:00",
             "time": "2025-09-14T09:36:45+00:00"
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
         },
         {
             "name": "sebastian/comparator",

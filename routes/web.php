@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 // ─── Public Landing ──────────────────────────────────────────────────────────
 Route::get('/', function () {
-    $featuredDonations = Donation::with(['category', 'donor'])
+    $featuredDonations = Donation::with(['category', 'user'])
         ->where('status', 'approved')->latest()->take(6)->get();
     $categories = Category::withCount(['donations as approved_count' => fn($q) => $q->where('status', 'approved')])->get();
     $stats = [
@@ -23,18 +23,18 @@ Route::get('/', function () {
 
 // ─── Auth Redirect for root /dashboard ───────────────────────────────────────
 Route::get('/dashboard', function () {
-    return redirect()->route(auth()->user()->dashboardRoute());
+    return redirect()->route(request()->user()->dashboardRoute());
 })->middleware(['auth'])->name('dashboard');
 
 // ─── Notification Mark Read ───────────────────────────────────────────────────
 Route::post('/notifications/{notification}/read', function (\App\Models\Notification $notification) {
-    abort_if($notification->user_id !== auth()->id(), 403);
+    abort_if($notification->user_id !== auth()->user()->id, 403);
     $notification->markAsRead();
     return back();
 })->middleware('auth')->name('notifications.read');
 
 Route::post('/notifications/read-all', function () {
-    auth()->user()->appNotifications()->whereNull('read_at')->update(['read_at' => now()]);
+    request()->user()->appNotifications()->whereNull('read_at')->update(['read_at' => now()]);
     return back()->with('success', 'Semua notifikasi ditandai sudah dibaca.');
 })->middleware('auth')->name('notifications.readAll');
 
@@ -66,6 +66,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/users', [Admin\UserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [Admin\UserController::class, 'show'])->name('users.show');
     Route::post('/users/{user}/toggle-active', [Admin\UserController::class, 'toggleActive'])->name('users.toggleActive');
+    Route::post('/users/{user}/change-role', [Admin\UserController::class, 'changeRole'])->name('users.changeRole');
 
     // Reports
     Route::get('/reports', [Admin\ReportController::class, 'index'])->name('reports.index');
@@ -97,14 +98,10 @@ Route::prefix('courier')->name('courier.')->middleware(['auth', 'role:courier'])
     Route::post('/assignments/{assignment}/deliver', [Courier\AssignmentController::class, 'markDelivered'])->name('assignments.deliver');
 });
 
-<<<<<<< HEAD
-// ─── PROFILE ────────────────────────────────────────────────────────────────────
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-=======
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
 require __DIR__ . '/auth.php';

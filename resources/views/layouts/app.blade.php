@@ -168,12 +168,9 @@
                             <p class="text-sm font-semibold text-slate-800 truncate">{{ auth()->user()->name }}</p>
                             <p class="text-xs text-slate-500 truncate">{{ auth()->user()->email }}</p>
                         </div>
-<<<<<<< HEAD
                         <a href="{{ route('profile.edit') }}" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors text-left mb-1">
                             👤 <span>Profil Saya</span>
                         </a>
-=======
->>>>>>> 3cc225b18dddc1bbb66e97cc61c251fa3aafc24b
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors text-left">
