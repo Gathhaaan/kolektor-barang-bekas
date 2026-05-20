@@ -40,7 +40,7 @@
                         <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
                         <input id="email" type="email" name="email" value="{{ old('email') }}" required
                             autocomplete="username"
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition text-sm @error('email') border-red-400 @enderror"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition text-sm @error('email') @enderror"
                             placeholder="email@kampus.ac.id">
                         @error('email')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -72,10 +72,11 @@
                             <input type="checkbox" name="remember" class="rounded border-slate-300 text-indigo-600">
                             Ingat saya
                         </label>
-                        @if(Route::has('password.request'))
+                        {{-- @if(Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-sm text-indigo-600 hover:underline">Lupa
                                 kata sandi?</a>
-                        @endif
+                        @endif --}}
+
                     </div>
 
                     <button type="submit"

@@ -37,11 +37,25 @@ class UserController extends Controller
 
     public function toggleActive(User $user)
     {
-        if ($user->isAdmin()) {
-            return back()->with('error', 'Tidak dapat menonaktifkan Administrator.');
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'Tidak dapat menonaktifkan akun sendiri.');
         }
         $user->update(['is_active' => !$user->is_active]);
         $status = $user->is_active ? 'diaktifkan' : 'dinonaktifkan';
         return back()->with('success', "Akun {$user->name} berhasil {$status}.");
+    }
+
+    public function changeRole(Request $request, User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'Tidak dapat mengubah role akun sendiri.');
+        }
+
+        $request->validate([
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $user->update(['role_id' => $request->role_id]);
+        return back()->with('success', "Role {$user->name} berhasil diubah.");
     }
 }
